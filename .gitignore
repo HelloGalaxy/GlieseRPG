@@ -1,2 +1,5 @@
 /Library
 Temp/
+*.suo
+GlieseRPG.sln
+*.csproj
