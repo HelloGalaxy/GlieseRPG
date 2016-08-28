@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
 namespace Game.Actor
 {
     public class PlayerDir : MonoBehaviour
     {
         public GameObject effectClickPrefab;
         public Vector3 iconOffset = new Vector3(0f, 1f, 0f);
-
+        public Vector3 targetPosition = Vector3.zero;
         private bool isMoving = false;
+        
+        private void Start()
+        {
+            targetPosition = this.transform.position;
+        }
 
         void Update()
         {
@@ -28,6 +32,11 @@ namespace Game.Actor
             if (Input.GetMouseButtonUp(0))
             {
                 isMoving = false;
+               
+            }
+
+            if (isMoving)
+            {
                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hitInfo;
                 bool isCollider = Physics.Raycast(ray, out hitInfo);
@@ -35,11 +44,6 @@ namespace Game.Actor
                 {
                     LookAtTarget(hitInfo.point);
                 }
-            }
-
-            if (isMoving)
-            {
-               
             }
         }
 
@@ -51,8 +55,8 @@ namespace Game.Actor
 
         void LookAtTarget(Vector3 hitPoint)
         {
-            //targetPosition = hitPoint;
-            //targetPosition = new Vector3(targetPosition.x, transform.position.y, targetPosition.z);
+            targetPosition = hitPoint;
+            targetPosition = new Vector3(targetPosition.x, transform.position.y, targetPosition.z);
             this.transform.LookAt(hitPoint);
         }
     }
