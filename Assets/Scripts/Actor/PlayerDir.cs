@@ -9,7 +9,13 @@ namespace Game.Actor
         public Vector3 iconOffset = new Vector3(0f, 1f, 0f);
         public Vector3 targetPosition = Vector3.zero;
         private bool isMoving = false;
-        
+        private PlayerMove playerMover;
+
+        private void Awake()
+        {
+            playerMover = GetComponent<PlayerMove>();
+        }
+
         private void Start()
         {
             targetPosition = this.transform.position;
@@ -24,16 +30,14 @@ namespace Game.Actor
                 var isCollided = Physics.Raycast(ray, out hitInfo);
                 if (isCollided && hitInfo.collider.tag == Tags.Ground)
                 {
-                    ShowClickEffect(hitInfo.point);
                     isMoving = true;
+                    ShowClickEffect(hitInfo.point);
+                    LookAtTarget(hitInfo.point);
                 }
             }
 
             if (Input.GetMouseButtonUp(0))
-            {
                 isMoving = false;
-               
-            }
 
             if (isMoving)
             {
@@ -41,9 +45,12 @@ namespace Game.Actor
                 RaycastHit hitInfo;
                 bool isCollider = Physics.Raycast(ray, out hitInfo);
                 if (isCollider && hitInfo.collider.tag == Tags.Ground)
-                {
                     LookAtTarget(hitInfo.point);
-                }
+            }
+            else
+            {
+                if(playerMover.isMoving)
+                    LookAtTarget(targetPosition);
             }
         }
 

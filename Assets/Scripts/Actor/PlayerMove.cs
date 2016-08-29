@@ -6,8 +6,9 @@ namespace Game.Actor
     public class PlayerMove : MonoBehaviour
     {
         public float speed = 5f;
-        private ActorState actorState = ActorState.Idle;
+        public bool isMoving = false;
 
+        private ActorState actorState = ActorState.Idle;
         private CharacterController controller;
         private PlayerDir dir;
 
@@ -20,7 +21,12 @@ namespace Game.Actor
             {
                 actorState = value;
                 if (actorState == ActorState.Moving)
+                {
                     controller.SimpleMove(transform.forward * speed);
+                    isMoving = true;
+                }
+                else
+                    isMoving = false;
             }
         }
 
