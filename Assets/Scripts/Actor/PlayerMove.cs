@@ -20,7 +20,7 @@ namespace Game.Actor
             set
             {
                 actorState = value;
-                if (actorState == ActorState.Moving)
+                if (actorState == ActorState.Walk)
                 {
                     controller.SimpleMove(transform.forward * speed);
                     isMoving = true;
@@ -39,7 +39,7 @@ namespace Game.Actor
         private void Update()
         {
             float distance = Vector3.Distance(dir.targetPosition, transform.position);
-            ActorState = distance > moveThreshold ? ActorState.Moving : ActorState.Idle;
+            ActorState = distance > moveThreshold ? ActorState.Walk : ActorState.Idle;
         }
     }
 }

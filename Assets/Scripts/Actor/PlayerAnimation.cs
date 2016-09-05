@@ -20,7 +20,7 @@ namespace Game.Actor
                 case ActorState.Idle:
                     PlayAnim("Idle");
                     break;
-                case ActorState.Moving:
+                case ActorState.Walk:
                     PlayAnim("Run");
                     break;
             }

@@ -57,7 +57,7 @@ namespace Game.Actor
         void ShowClickEffect(Vector3 hitPoint)
         {
             hitPoint = hitPoint + iconOffset;
-            GameObject.Instantiate(effectClickPrefab, hitPoint, Quaternion.identity);
+            Instantiate(effectClickPrefab, hitPoint, Quaternion.identity);
         }
 
         void LookAtTarget(Vector3 hitPoint)
